@@ -1,0 +1,1 @@
+const { Tiket } = require('../models')

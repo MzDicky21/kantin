@@ -14,13 +14,47 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   User.init({
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    role: DataTypes.STRING
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        notEmpty: {msg: ""},
+        notNull: {msg: ""}
+      }
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true,
+        notEmpty: {msg: ""},
+        notNull: {msg: ""}
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {msg: ""},
+        notNull: {msg: ""}
+      }
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {msg: ""},
+        notNull: {msg: ""}
+      }
+    }
   }, {
     sequelize,
     modelName: 'User',
   });
+  User.beforeCreate(user => {
+    user.password = hashPassword(user.password)
+  })
   return User;
 };

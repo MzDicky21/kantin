@@ -10,10 +10,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       SantriId: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       TiketId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

@@ -12,12 +12,12 @@ module.exports = {
       SantriId: {
         type: Sequelize.STRING,
         allowNull: false,
-        references: {
-          model: 'Santris',
-          key: 'id'
-        },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
+        // references: {
+        //   model: 'Users',
+        //   key: 'id'
+        // },
+        // onDelete: 'CASCADE',
+        // onUpdate: 'CASCADE'
       },
       TiketId: {
         type: Sequelize.INTEGER,

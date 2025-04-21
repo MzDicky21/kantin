@@ -19,8 +19,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
       validate: {
-        notEmpty: {msg: ""},
-        notNull: {msg: ""}
+        notEmpty: {msg: "name can't be empty"},
+        notNull: {msg: "name can't be null"}
       }
     },
     email: {
@@ -29,24 +29,24 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       validate: {
         isEmail: true,
-        notEmpty: {msg: ""},
-        notNull: {msg: ""}
+        notEmpty: {msg: "email can't be empty"},
+        notNull: {msg: "email can't be null"}
       }
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: {msg: ""},
-        notNull: {msg: ""}
+        notEmpty: {msg: "password can't be empty"},
+        notNull: {msg: "password can't be null"}
       }
     },
     role: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: {msg: ""},
-        notNull: {msg: ""}
+        notEmpty: {msg: "role can't be empty"},
+        notNull: {msg: "role can't be null"}
       }
     }
   }, {

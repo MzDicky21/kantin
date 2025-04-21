@@ -14,8 +14,22 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   TiketSantri.init({
-    SantriId: DataTypes.STRING,
-    TiketId: DataTypes.INTEGER
+    SantriId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {msg: "SantriId can't be empty"},
+        notNull: {msg: "SantriId can't be null"}
+      }
+    },
+    TiketId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {msg: "TiketId can't be empty"},
+        notNull: {msg: "TiketId can't be null"}
+      }
+    }
   }, {
     sequelize,
     modelName: 'TiketSantri',

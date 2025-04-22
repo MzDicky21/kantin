@@ -11,11 +11,23 @@ module.exports = {
       },
       SantriId: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        references: {
+          model: 'Santris',
+          key: 'id'
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
       },
       TiketId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+          model: 'Tikets',
+          key: 'id'
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
       },
       createdAt: {
         allowNull: false,

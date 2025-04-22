@@ -1,0 +1,1 @@
+const { TiketSantri } = require('../models')

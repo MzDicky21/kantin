@@ -1,0 +1,1 @@
+const { DetailTiketSantri } = require('../models')

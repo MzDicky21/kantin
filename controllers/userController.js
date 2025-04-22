@@ -1,14 +1,32 @@
 const { User } = require('../models')
-const {where} = require('sequelize')
+const { where } = require('sequelize')
 
 class UserController {
     static async getAll(req, res, next) {
         try {
-            const users = await User.findAll({
-                attributes: {exclude: ["password"]}
+            const { page: pageQuery, size: sizeQuery, search, field } = req.query
+            const page = pageQuery ? +pageQuery : 1
+            const limit = sizeQuery ? +sizeQuery : 10
+
+            const offset = (page - 1) * limit
+
+            let query = {}
+            if (search && field) {
+                query[field] = { [Op.iLike]: `${search}` }
+            }
+            const { count, rows } = await User.findAndCountAll({
+                attributes: { exclude: ["password"] },
+                where: query,
+                offset,
+                limit
             })
 
-            return res.json(users)
+            res.json({
+                data: rows,
+                totalItems: count,
+                totalPages: Math.ceil(count / limit),
+                currentPage: page
+            })
         } catch (error) {
             next(error)
         }
@@ -16,13 +34,13 @@ class UserController {
 
     static async getById(req, res, next) {
         try {
-            const {id} = req.params
+            const { id } = req.params
             const user = await User.findByPk(id, {
-                attributes: {exclude: ["password"]}
+                attributes: { exclude: ["password"] }
             })
 
             if (!user) {
-                throw ({name: "NOT_FOUND", message: "user not found"})
+                throw ({ name: "NOT_FOUND", message: "user not found" })
             }
             return res.json(user)
         } catch (error) {
@@ -42,13 +60,13 @@ class UserController {
 
     static async updateUser(req, res, next) {
         try {
-            const {id} = req.params
+            const { id } = req.params
             const data = req.body
 
             const find = await User.findByPk(id)
 
             if (!find) {
-                throw ({name: "NOT FOUND", message: "user not found"})
+                throw ({ name: "NOT FOUND", message: "user not found" })
             }
 
             find.name = data.name
@@ -56,7 +74,7 @@ class UserController {
 
             await find.save()
 
-            return res.json({message: "user has been updated"})
+            return res.json({ message: "user has been updated" })
         } catch (error) {
             next(error)
         }
@@ -68,13 +86,13 @@ class UserController {
             const find = await User.findByPk(id)
 
             if (!find) {
-                throw ({ name: "NOT_FOUND", message: "user not found"})
+                throw ({ name: "NOT_FOUND", message: "user not found" })
             }
 
             await User.destroy({
                 where: { id }
             })
-            return res.json({ message: "deleted successfully"})            
+            return res.json({ message: "deleted successfully" })
         } catch (error) {
             console.log(error)
             next(error)

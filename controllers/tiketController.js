@@ -4,11 +4,29 @@ const { where } = require('sequelize')
 class TiketController {
     static async getAll(req, res, next) {
         try {
-            const tikets = await Tiket.findAll({
-                attributes: { exclude: ["password"] }
+            const { page: pageQuery, size: sizeQuery, search, field } = req.query
+            const page = pageQuery ? +pageQuery : 1
+            const limit = sizeQuery ? +sizeQuery : 10
+
+            const offset = (page - 1) * limit
+
+            let query = {}
+            if (search && field) {
+                query[field] = { [Op.iLike]: `${search}` }
+            }
+            // console.log(query, "<-- query")
+            const { count, rows } = await Tiket.findAndCountAll({
+                where: query,
+                offset,
+                limit
             })
 
-            return res.json(tikets)
+            res.json({
+                data: rows,
+                totalItems: count,
+                totalPages: Math.ceil(count / limit),
+                currentPage: page
+            })
         } catch (error) {
             next(error)
         }
@@ -17,9 +35,7 @@ class TiketController {
     static async getById(req, res, next) {
         try {
             const { id } = req.params
-            const tiket = await Tiket.findByPk(id, {
-                attributes: { exclude: ["password"] }
-            })
+            const tiket = await Tiket.findByPk(id)
 
             if (!tiket) {
                 throw ({ name: "NOT_FOUND", message: "tiket not found" })
@@ -34,7 +50,7 @@ class TiketController {
         try {
             const data = req.body
             const newTiket = await Tiket.create(data)
-            return res.status(200).json({ message: `new tiket with email: ${newTiket.email} has been created` })
+            return res.status(200).json({ message: `new tiket with has been created` })
         } catch (error) {
             next(next)
         }

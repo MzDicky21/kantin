@@ -1,5 +1,5 @@
-const { createToken } = require('../helper/jwt')
-const { comparePassword, hashPassword } = require('../helper/bcrypt')
+const { createToken } = require('../helpers/jwt')
+const { comparePassword, hashPassword } = require('../helpers/bcrypt')
 const { User } = require('../models')
 const { where } = require('sequelize')
 

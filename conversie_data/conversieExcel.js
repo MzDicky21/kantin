@@ -4,7 +4,8 @@ const path = require('path')
 const { User } = require('../models')
 
 
-class XlsxController {
+class readExcel
+ {
    static async readXlsx(req, res, next) {
         try {
             const filePath = path.join(__dirname, '..', 'coba.xlsx')
@@ -16,13 +17,6 @@ class XlsxController {
             if (!data) {
                 throw new Error({ name: "NOT_FOUND", message: "file not found" })
             }
-
-            await User.create({
-                username: data.nama,
-                email: data.email,
-                password: data.password,
-                role: data.role
-            })
             res.status(200).json(data)
         } catch (error) {
             next(error)
@@ -30,4 +24,4 @@ class XlsxController {
     }
 }
 
-module.exports = XlsxController
+module.exports = readExcel

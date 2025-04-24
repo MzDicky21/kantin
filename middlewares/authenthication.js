@@ -1,4 +1,4 @@
-const { decodedToken } = require('../helper/jwt')
+const { decodedToken } = require('../helpers/jwt')
 const { User } = require('../models')
 
 async function authMiddleware(req, res, next) {

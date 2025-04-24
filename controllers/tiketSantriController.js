@@ -1,6 +1,4 @@
 const { TiketSantri } = require('../models')
-
-const { TiketSantri } = require('../models')
 const { where } = require('sequelize')
 
 class TiketSantriController {

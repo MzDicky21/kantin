@@ -8,3 +8,7 @@ router.get('/', DetailTiketSantriController.getAll)
       .post('/', DetailTiketSantriController.create)
       .patch('/:id', DetailTiketSantriController.updateCount)
       .delete('/:id', DetailTiketSantriController.deleteDetailTiketSantri)
+
+
+
+module.exports = router

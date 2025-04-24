@@ -68,7 +68,6 @@ class TiketController {
             }
 
             find.name = data.name
-            find.email = data.email
 
             await find.save()
 

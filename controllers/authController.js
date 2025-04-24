@@ -54,7 +54,7 @@ class AuthController {
 
     static async patchPasswordUser(req, res, next) {
         try {
-            const { username } = req.params
+            const { name } = req.params
             const { newPassword, confirmsPassword } = req.body
 
             if (!username) {

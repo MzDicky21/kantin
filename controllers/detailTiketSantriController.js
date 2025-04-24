@@ -96,3 +96,5 @@ class DetailTiketSantriController {
         }
     }
 }
+
+module.exports = DetailTiketSantriController
